@@ -1,0 +1,34 @@
+{
+  "name": "yt-toolkit",
+  "version": "1.0.0",
+  "description": "It's a package to Search Videos and Stream Video Audio from Youtube.",
+  "main": "Index.js",
+  "dependencies": {
+    "axios": "^0.21.1",
+    "ytdl-core": "^4.5.0",
+    "querystring": "^0.2.1"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/A4Z0/yt-toolkit.git"
+  },
+  "keywords": [
+    "youtube",
+    "axios",
+    "querystring",
+    "ytdl-core",
+    "ytdl",
+    "query",
+    "promise"
+  ],
+  "author": "A4Z0",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/A4Z0/yt-toolkit/issues"
+  },
+  "homepage": "https://github.com/A4Z0/yt-toolkit#readme"
+}
