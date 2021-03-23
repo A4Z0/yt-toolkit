@@ -1,16 +1,15 @@
-<h1 align="center"> What is this?
+<h1> What is this? </h1>
 
-<p align="center" style="padding-top: 16px; font-size: 14px"> It's a package to Search Videos and Stream Video Audio from Youtube. </p>
-</h1>
+<p style="padding-top: 16px; font-size: 18px"> It's a package to Search Videos and Stream Video Audio from Youtube. </p>
 
 ```js
 const Class = require('./Index.js');
 const Toolkit = new Class("Your Youtube API Token");
 ```
 
-<h1 align="center" style="padding-top: 16px; font-size: 25px;"> Examples
+<h1 style="padding-top: 16px; font-size: 25px;"> Examples
 
-<p align="center" style="padding-top: 16px; font-size: 16px"> Searching on Youtube </p>
+<p style="padding-top: 16px; font-size: 18px"> Searching on Youtube </p>
 </h1>
 
 ```js
@@ -19,7 +18,7 @@ Toolkit.Search("Search").then((Results) => {
 });
 ```
 
-<p align="center" style="padding-top: 16px; font-size: 16px"> Searching Videos on Youtube </p>
+<p style="padding-top: 16px; font-size: 18px"> Searching Videos on Youtube </p>
 
 ```js
 Toolkit.Search("Search", {
@@ -30,7 +29,7 @@ Toolkit.Search("Search", {
 });
 ```
 
-<p align="center" style="padding-top: 16px; font-size: 16px"> Next Page Function </p>
+<p style="padding-top: 16px; font-size: 18px"> Next Page Function </p>
 
 ```js
 Toolkit.Search("Search", {
@@ -43,7 +42,7 @@ Toolkit.Search("Search", {
 });
 ```
 
-<p align="center" style="padding-top: 16px; font-size: 16px"> Prev Page Function </p>
+<p style="padding-top: 16px; font-size: 18px"> Prev Page Function </p>
 
 ```js
 Toolkit.Search("Search", {
@@ -58,7 +57,7 @@ Toolkit.Search("Search", {
 });
 ```
 
-<p align="center" style="padding-top: 16px; font-size: 16px"> Streaming Audio (required: fs) </p>
+<p style="padding-top: 16px; font-size: 18px"> Streaming Audio (required: fs) </p>
 
 ```js
 Toolkit.Audio("Video Link or ID").then((Audio) => {
