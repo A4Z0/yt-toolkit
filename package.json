@@ -1,6 +1,6 @@
 {
   "name": "yt-toolkit",
-  "version": "1.0.6",
+  "version": "1.0.7",
   "description": "It's a package to Search Videos and Stream Video Audio from Youtube.",
   "main": "Index.js",
   "dependencies": {
