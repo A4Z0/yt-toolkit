@@ -8,9 +8,9 @@ const Toolkit = new Class("Your Youtube API Token");
 ```
 
 <h1 style="padding-top: 16px; font-size: 25px;"> Examples
+</h1>
 
 <p style="padding-top: 16px; font-size: 18px"> Searching on Youtube </p>
-</h1>
 
 ```js
 Toolkit.Search("Search").then((Results) => {
