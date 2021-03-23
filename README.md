@@ -3,7 +3,7 @@
 <p style="padding-top: 16px; font-size: 18px"> It's a package to Search Videos and Stream Video Audio from Youtube. </p>
 
 ```js
-const Class = require('./Index.js');
+const Class = require('yt-toolkit');
 const Toolkit = new Class("Your Youtube API Token");
 ```
 
