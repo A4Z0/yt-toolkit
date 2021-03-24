@@ -1,6 +1,6 @@
 {
   "name": "yt-toolkit",
-  "version": "1.2.0",
+  "version": "1.2.1",
   "description": "Y-TK is a module that helps to use youtube tools.",
   "main": "Index.js",
   "dependencies": {
