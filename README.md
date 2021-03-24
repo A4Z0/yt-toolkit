@@ -27,10 +27,10 @@
 ## Examples
 
 ```js
-const Toolkit = require('yt-toolkit');
-const YT = new Toolkit("Your Youtube API Key");
+const YTK = require('yt-toolkit');
+const Query = new YTK.Query("Your Youtube API Key");
 
-YT.Search("Any Search", (Results) => {
+Query.Search("Any Search", (Results) => {
     console.log(Results);
 });
 ```
@@ -38,7 +38,7 @@ YT.Search("Any Search", (Results) => {
 <h3 style="padding-left: 8px;"> - Next Page Example </h3>
 
 ```js
-YT.Search("Any Search", (Results) => {
+Query.Search("Any Search", (Results) => {
     Results["Page"].Next((Results) => {
         console.log(Results);
     });
@@ -48,7 +48,7 @@ YT.Search("Any Search", (Results) => {
 <h3 style="padding-left: 8px;"> - Prev Page Example </h3>
 
 ```js
-YT.Search("Any Search", (Results) => {
+Query.Search("Any Search", (Results) => {
     Results["Page"].Next((Results) => {
         Results["Page"].Prev((Results) => {
             console.log(Results);
@@ -60,7 +60,9 @@ YT.Search("Any Search", (Results) => {
 <h3 style="padding-left: 8px;"> - Streaming Example </h3>
 
 ```js
-YT.Stream('Any Youtube Video Link or ID', (Stream) => {
+const Downloader = new YTK.Downloader();
+
+Downloader.Stream('Any Youtube Video Link or ID', (Stream) => {
     Stream.pipe(require('fs').createWriteStream('File.'+Stream["format"]));
 }, {
     Video: false,

@@ -1,8 +1,14 @@
-const Class = require('./Index.js');
-const Toolkit = new Class("Youtube API Key");
+const YTK = require('./Index.js');
+const Query = new YTK.Query("Your Youtube API Key");
 
-Toolkit.Search("Any Search", (Results) => {
+Query.Search("Any Search", (Results) => {
     Results["Page"].Next((Results) => {
         console.log(Results);
     });
+});
+
+const Downloader = new YTK.Downloader();
+
+Downloader.Stream("Any Video Link or ID", (Stream) => {
+    console.log(Stream);
 });

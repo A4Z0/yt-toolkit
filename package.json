@@ -1,7 +1,7 @@
 {
   "name": "yt-toolkit",
-  "version": "1.1.1",
-  "description": "It's a package to Search Videos and Stream Video Audio from Youtube.",
+  "version": "1.2.0",
+  "description": "Y-TK is a module that helps to use youtube tools.",
   "main": "Index.js",
   "dependencies": {
     "axios": "^0.21.1",
@@ -22,7 +22,8 @@
     "querystring",
     "ytdl-core",
     "ytdl",
-    "query"
+    "query",
+    "downloader"
   ],
   "author": "A4Z0",
   "license": "ISC",
