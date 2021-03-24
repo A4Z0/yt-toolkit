@@ -1,65 +1,68 @@
-<h1> What is this? </h1>
+<div align="center">
+    <h1> Y-TK </h1>
+    <a href="https://www.npmjs.com/package/yt-toolkit"><img src="https://img.shields.io/npm/v/yt-toolkit.svg?maxAge=3600"></a>
+    <a href="https://www.npmjs.com/package/yt-toolkit"><img src="https://img.shields.io/npm/dt/yt-toolkit.svg?maxAge=3600"></a>
+    <a href="https://david-dm.org/A4Z0/yt-toolkit"><img src="https://img.shields.io/david/A4Z0/yt-toolkit.svg?maxAge=3600"/>
+    </a>
+</div>
 
-<p style="padding-top: 16px; font-size: 18px"> It's a package to Search Videos and Stream Video Audio from Youtube. </p>
+<div align="center">
+    <a href="https://nodei.co/npm/yt-toolkit/">
+    <img src="https://nodei.co/npm/yt-toolkit.png?downloads=true&stars=true">
+    </a>
+</div>
+
+## Contents
+- [About](#about)
+- [Examples](#examples)
+
+## About
+
+<a href="https://nodei.co/npm/yt-toolkit/" style="color: #EC4F47;">Y-TK</a> is a module that helps to use youtube tools. 
+
+- This module is not affiliated with youtube.
+
+<div style="padding: 8px;"></div>
+
+## Examples
 
 ```js
-const Class = require('yt-toolkit');
-const Toolkit = new Class("Your Youtube API Token");
-```
+const Toolkit = require('yt-toolkit');
+const YT = new Toolkit("Your Youtube API Key");
 
-<h1 style="padding-top: 16px; font-size: 25px;"> Examples
-</h1>
-
-<p style="padding-top: 16px; font-size: 18px"> Searching on Youtube </p>
-
-```js
-Toolkit.Search("Search").then((Results) => {
+YT.Search("Any Search", (Results) => {
     console.log(Results);
 });
 ```
 
-<p style="padding-top: 16px; font-size: 18px"> Searching Videos on Youtube </p>
+<h3 style="padding-left: 8px;"> - Next Page Example </h3>
 
 ```js
-Toolkit.Search("Search", {
-    Attempts: 10,
-    Type: 'video'
-}).then((Results) => {
-    console.log(Results);
-});
-```
-
-<p style="padding-top: 16px; font-size: 18px"> Next Page Function </p>
-
-```js
-Toolkit.Search("Search", {
-    Attempts: 10,
-    Type: 'video'
-}).then((Results) => {
-    Results["Page"].Next().then((Results) => {
+YT.Search("Any Search", (Results) => {
+    Results["Page"].Next((Results) => {
         console.log(Results);
     });
 });
 ```
 
-<p style="padding-top: 16px; font-size: 18px"> Prev Page Function </p>
+<h3 style="padding-left: 8px;"> - Prev Page Example </h3>
 
 ```js
-Toolkit.Search("Search", {
-    Attempts: 10,
-    Type: 'video'
-}).then((Results) => {
-    Results["Page"].Next().then((Results) => {
-        Results["Page"].Prev().then((Results) => {
+YT.Search("Any Search", (Results) => {
+    Results["Page"].Next((Results) => {
+        Results["Page"].Prev((Results) => {
             console.log(Results);
-        });
+        };
     });
 });
 ```
 
-<p style="padding-top: 16px; font-size: 18px"> Streaming Audio (required: fs) </p>
+<h3 style="padding-left: 8px;"> - Streaming Example </h3>
 
 ```js
-Toolkit.Audio("Video Link or ID").then((Audio) => {
-    Audio.pipe(require('fs').createWriteStream('Audio.mp3'));
+YT.Stream('Any Youtube Video Link or ID', (Stream) => {
+    Stream.pipe(require('fs').createWriteStream('File.'+Stream["format"]));
+}, {
+    Video: false,
 });
+```
