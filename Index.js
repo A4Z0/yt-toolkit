@@ -7,7 +7,7 @@ module.exports = class Youtube {
         this.Key = Key;
     };
 
-    Search(Search, Options = { Attempts: 0, Type: "", Part: "", Token: ""}) {
+    Search(Search, Callback, Options = { Attempts: 0, Type: "", Part: "", Token: ""}) {
         const Parameters = {
             q: Search,
             key: this.Key,
@@ -44,81 +44,91 @@ module.exports = class Youtube {
             };
         };
 
-        return new Promise(async (Resolve, Reject) => {
-            try {
-                return await Axios.get('https://www.googleapis.com/youtube/v3/search?' + String.stringify(Parameters)).then(async (Response) => {
-                    const Data = Response.data;
+        try {
+            Axios.get('https://www.googleapis.com/youtube/v3/search?' + String.stringify(Parameters)).then(async (Response) => {
+                const Data = Response.data;
 
-                    const Results = Data.items.map((Item) => {
-                        var Link = null;
-                        var ID = null;
-            
-                        if(Item.id.kind == "youtube#channel") {
-                            Link = 'https://www.youtube.com/channel/' + Item.id.channelId;
-                            ID = Item.id.channelId;
-                        }else if(Item.id.kind == "youtube#playlist") {
-                            Link = 'https://www.youtube.com/playlist?list=' + Item.id.playlistId
-                            ID = Item.id.playlistId
-                        }else{
-                            Link = 'https://www.youtube.com/watch?v=' + Item.id.videoId;
-                            ID = Item.id.videoId;
-                        };
-
-                        return JSON(ID, Link, Item);
-                    });
-
-                    return new Promise(async (Resolve, Reject) => {
-                        try {
-                            Resolve({Results, Data});
-                        }catch(Error) {
-                            Reject(Error);
-                        };
-                    });
-                }).then((Object) => {
-                    const Data = Object.Data;
-                    const Results = Object.Results;
-
-                    Results["Page"] = {};
-
-                    if(Data.nextPageToken) {
-                        Results["Page"]["Next"] = () => {
-                            Options["Token"] = Data.nextPageToken;
-
-                            return this.Search(Search, Options);
-                        };
+                const Results = Data.items.map((Item) => {
+                    var Link = null;
+                    var ID = null;
+        
+                    if(Item.id.kind == "youtube#channel") {
+                        Link = 'https://www.youtube.com/channel/' + Item.id.channelId;
+                        ID = Item.id.channelId;
+                    }else if(Item.id.kind == "youtube#playlist") {
+                        Link = 'https://www.youtube.com/playlist?list=' + Item.id.playlistId
+                        ID = Item.id.playlistId
+                    }else{
+                        Link = 'https://www.youtube.com/watch?v=' + Item.id.videoId;
+                        ID = Item.id.videoId;
                     };
 
-                    if(Data.prevPageToken) {
-                        Results["Page"]["Prev"] = () => {
-                            Options["Token"] = Data.prevPageToken;
-
-                            return this.Search(Search, Options);  
-                        };
-                    };
-
-                    return Resolve(Results);
-                }).catch((Error) => {
-                    return Reject(Error);
+                    return JSON(ID, Link, Item);
                 });
-            }catch(Error) {
-                Reject(Error);
-            };
-        });
+
+                return new Promise(async (Resolve, Reject) => {
+                    try {
+                        Resolve({Results, Data});
+                    }catch(Error) {
+                        Reject(Error);
+                    };
+                });
+            }).then((Object) => {
+                const Data = Object.Data;
+                const Results = Object.Results;
+
+                Results["Page"] = {};
+
+                if(Data.nextPageToken) {
+                    Results["Page"]["Next"] = (Callback) => {
+                        Options["Token"] = Data.nextPageToken;
+
+                        return this.Search(Search, Callback, Options);  
+                    };
+                };
+
+                if(Data.prevPageToken) {
+                    Results["Page"]["Prev"] = (Callback) => {
+                        Options["Token"] = Data.prevPageToken;
+
+                        return this.Search(Search, Callback, Options);  
+                    };
+                };
+
+                Callback(Results);
+            }).catch((Err) => {
+                throw new Error(Err);
+            });
+        }catch(Err) {
+            throw new Error(Err);
+        };
     };
 
-    Audio(ID) {
+    Stream(ID, Callback, Options = { Filter: "", Quality: "", Video: true}) {
+
+        var Parameters = {
+            quality: Options.Quality || null,
+            filter: Options.Filter == "audioonly" && Video == true ? null : Options.Filter || null,
+        };
+
+        if(Options.Video == false) {
+            Parameters = {
+                filter: 'audioonly',
+            };
+        };
+
         if(!ID.includes("https://www.youtube.com/watch?v=")) {
             ID = "https://www.youtube.com/watch?v=" + ID;
         };
 
-        return new Promise(async (Resolve, Reject) => {
-            try {
-                const Stream = YTDL(ID, { filter: 'audioonly' });
+        try {
+            const Stream = YTDL(ID, Parameters);
 
-                Resolve(Stream);
-            }catch(Error) {
-                Reject(Error);
-            };
-        });
+            Stream["format"] = Options.Video == false ? 'mp3' : (Parameters.filter != null ? Parameters.filter : 'mp4');
+
+            Callback(Stream);
+        }catch(Err) {
+            throw new Error(Err);
+        };
     };
 };

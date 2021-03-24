@@ -1,12 +1,12 @@
 {
   "name": "yt-toolkit",
-  "version": "1.0.7",
+  "version": "1.1.0",
   "description": "It's a package to Search Videos and Stream Video Audio from Youtube.",
   "main": "Index.js",
   "dependencies": {
     "axios": "^0.21.1",
-    "ytdl-core": "^4.5.0",
-    "querystring": "^0.2.1"
+    "querystring": "^0.2.1",
+    "ytdl-core": "^4.5.0"
   },
   "devDependencies": {},
   "scripts": {
@@ -22,8 +22,7 @@
     "querystring",
     "ytdl-core",
     "ytdl",
-    "query",
-    "promise"
+    "query"
   ],
   "author": "A4Z0",
   "license": "ISC",
