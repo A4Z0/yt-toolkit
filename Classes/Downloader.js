@@ -1,7 +1,8 @@
 const YTDL = require('ytdl-core');
+const YTPL = require('ytpl');
 
 module.exports = class Downloader {
-    Stream(ID, Callback, Options = { Filter: "", Quality: "", Video: true}) {
+    Video(ID, Callback, Options = { Filter: "", Quality: "", Video: true}) {
 
         var Parameters = {
             quality: Options.Quality || null,
@@ -24,6 +25,33 @@ module.exports = class Downloader {
             Stream["format"] = Options.Video == false ? 'mp3' : (Parameters.filter != null ? Parameters.filter : 'mp4');
 
             Callback(Stream);
+        }catch(Err) {
+            throw new Error(Err);
+        };
+    };
+
+    Playlist(ID, Callback, Options = { Filter: "", Quality: "", Video: true}) {
+
+        if(!ID.includes("https://www.youtube.com/watch?v=")) {
+            ID = "https://www.youtube.com/watch?v=" + ID;
+        };
+
+        try {
+            YTPL(ID).then((Playlist) => {
+                const Array = [];
+
+                Playlist.items.forEach((Song) => {
+                    this.Stream(Song.id, (Stream) => {
+                        Stream["ID"] = Song.id;
+
+                        Array.push(Stream);
+                    }, Options);
+                });
+
+                Callback(Array);
+            }).catch((Err) => {
+                throw new Error(Err);
+            });
         }catch(Err) {
             throw new Error(Err);
         };
