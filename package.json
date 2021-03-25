@@ -24,7 +24,10 @@
     "ytdl-core",
     "ytdl",
     "query",
-    "downloader"
+    "downloader",
+    "ytpl",
+    "video",
+    "playlist"
   ],
   "author": "A4Z0",
   "license": "ISC",
