@@ -1,6 +1,6 @@
 {
   "name": "yt-toolkit",
-  "version": "1.3.4",
+  "version": "1.3.5",
   "description": "Y-TK is a module that helps to use youtube tools.",
   "main": "Index.js",
   "dependencies": {
@@ -27,7 +27,10 @@
     "downloader",
     "ytpl",
     "video",
-    "playlist"
+    "playlist",
+    "search",
+    "api",
+    "backend"
   ],
   "author": "A4Z0",
   "license": "MIT",
